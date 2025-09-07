@@ -1,0 +1,17 @@
+<main>
+  <section class="logo">
+    <div class="slogan">
+      <h1>Bem vindo ao Pet Points!</h1>
+      <p>
+        O seu sistema completo para a gestão de clínicas veterinárias.
+        Oferecemos carteirinha digital para seus clientes e um programa de
+        recompensas exclusivo para fidelizá-los. Simplifique sua rotina e foque
+        no cuidado dos animais.
+      </p>
+    </div>
+  </section>
+  <section class="form-container">
+    <app-login [hidden]="mode_form === 'register'" (toogleModeForm)="toogleModeForm($event)"></app-login>
+    <app-register [hidden]="mode_form === 'login'"></app-register>
+  </section>
+</main>
