@@ -11,7 +11,13 @@
     </div>
   </section>
   <section class="form-container">
-    <app-login [hidden]="mode_form === 'register'" (toogleModeForm)="toogleModeForm($event)"></app-login>
-    <app-register [hidden]="mode_form === 'login'"></app-register>
+    <app-login
+      [hidden]="mode_form === 'register'"
+      (toogleModeForm)="toogleModeForm($event)"
+    ></app-login>
+    <app-register
+      [hidden]="mode_form === 'login'"
+      (toogleModeForm)="toogleModeForm($event)"
+    ></app-register>
   </section>
 </main>

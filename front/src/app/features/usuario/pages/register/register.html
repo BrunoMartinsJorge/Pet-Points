@@ -1,1 +1,211 @@
-<p>register works!</p>
+<main>
+  <div class="logo"></div>
+  <p-stepper [value]="1" class="basis-[50rem]" [linear]="true">
+    <p-step-list>
+      <p-step [value]="1">Login</p-step>
+      <p-step [value]="2">Pessoal</p-step>
+      <p-step [value]="3">Localização</p-step>
+    </p-step-list>
+    <p-step-panels>
+      <p-step-panel [value]="1">
+        <ng-template #content let-activateCallback="activateCallback">
+          <form [formGroup]="registerFormFirstStep">
+            <div class="input-group">
+              <input
+                type="text"
+                pInputText
+                placeholder="Email"
+                style="width: 100%"
+                formControlName="email"
+              />
+            </div>
+            <div class="input-group">
+              <p-password
+                promptLabel="Escolha sua senha"
+                weakLabel="Muito simples"
+                mediumLabel="Média"
+                strongLabel="Forte"
+                [toggleMask]="true"
+                style="width: 100%"
+                placeholder="Senha"
+                formControlName="password"
+              />
+            </div>
+            <div class="input-group">
+              <p-password
+                promptLabel="Escolha sua senha"
+                weakLabel="Muito simples"
+                mediumLabel="Média"
+                strongLabel="Forte"
+                [toggleMask]="true"
+                style="width: 100%"
+                placeholder="Senha"
+                formControlName="confirmPassword"
+              />
+            </div>
+          </form>
+          <br />
+          <div class="footer-form">
+            <p-button
+              label="Próximo"
+              [disabled]="!firstStepCompleted"
+              icon="pi pi-arrow-right"
+              iconPos="right"
+              (onClick)="activateCallback(2)"
+            />
+          </div>
+        </ng-template>
+      </p-step-panel>
+
+      <p-step-panel [value]="2">
+        <ng-template #content let-activateCallback="activateCallback">
+          <form class="second-form" [formGroup]="registerFormSecondStep">
+            <div class="input-group">
+              <input
+                type="text"
+                pInputText
+                placeholder="Nome"
+                style="width: 100%"
+                formControlName="nome"
+              />
+            </div>
+            <div class="input-group">
+              <p-datepicker
+                formControlName="dataNascimento"
+                placeholder="Data de nascimento"
+                style="width: 100%"
+              />
+            </div>
+            <div class="input-group">
+              <p-inputmask
+                mask="+55 (999) 99999-9999"
+                formControlName="contato"
+                placeholder="+55 (999) 99999-9999"
+                [style]="{ width: '100%' }"
+              />
+            </div>
+            <div class="input-group">
+              <p-inputmask
+                mask="999.999.999-99"
+                formControlName="cpf"
+                placeholder="999.999.999-99"
+                [style]="{ width: '100%' }"
+              />
+            </div>
+            <div class="input-group">
+              <p-select
+                [options]="generos"
+                formControlName="genero"
+                optionValue="value"
+                optionLabel="label"
+                placeholder="Selecione um gênero"
+                [style]="{ width: '100%' }"
+              />
+            </div>
+          </form>
+          <div class="footer-form">
+            <p-button
+              label="Voltar"
+              severity="secondary"
+              icon="pi pi-arrow-left"
+              (onClick)="activateCallback(1)"
+            />
+            <p-button
+              label="Próximo"
+              icon="pi pi-arrow-right"
+              iconPos="right"
+              [disabled]="!secondStepCompleted"
+              (onClick)="activateCallback(3)"
+            />
+          </div>
+        </ng-template>
+      </p-step-panel>
+
+      <p-step-panel [value]="3">
+        <ng-template #content let-activateCallback="activateCallback">
+          <form class="third-form" [formGroup]="registerFormThirdStep">
+            <p-inputgroup>
+              <p-button
+                icon="pi pi-search"
+                (click)="searchByCep()"
+                severity="contrast"
+                pTooltip="Buscar CEP"
+                tooltipPosition="top"
+              />
+              <p-inputmask
+                mask="99999-999"
+                placeholder="Cep"
+                formControlName="cep"
+                pTooltip="Não obrigatório"
+                tooltipPosition="top"
+              />
+            </p-inputgroup>
+            <div class="input-group">
+              <input
+                type="text"
+                pInputText
+                placeholder="Logradouro"
+                style="width: 100%"
+                formControlName="logradouro"
+              />
+            </div>
+            <div class="input-group">
+              <input
+                type="text"
+                pInputText
+                placeholder="Número"
+                style="width: 100%"
+                formControlName="numero"
+                pTooltip="Não obrigado"
+                tooltipPosition="top"
+              />
+            </div>
+            <div class="input-group">
+              <input
+                type="text"
+                pInputText
+                placeholder="Complemento"
+                style="width: 100%"
+                formControlName="complemento"
+                pTooltip="Não obrigatório"
+                tooltipPosition="top"
+              />
+            </div>
+            <div class="input-group">
+              <input
+                type="text"
+                pInputText
+                placeholder="Bairro"
+                style="width: 100%"
+                formControlName="bairro"
+              />
+            </div>
+          </form>
+          <div class="footer-form">
+            <p-button
+              label="Voltar"
+              icon="pi pi-arrow-left"
+              iconPos="right"
+              (onClick)="activateCallback(2)"
+              severity="secondary"
+            />
+            <p-button
+              label="Registrar-se"
+              icon="pi pi-user-plus"
+              [disabled]="!formsCompleted"
+              (click)="registerUser()"
+            />
+          </div>
+        </ng-template>
+      </p-step-panel>
+    </p-step-panels>
+  </p-stepper>
+  <hr />
+  <br />
+  <p-button
+    label="Logar"
+    icon="pi pi-sign-in"
+    (click)="toogleModeForm.emit()"
+    styleClass="p-button-outlined"
+  />
+</main>

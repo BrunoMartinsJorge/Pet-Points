@@ -10,6 +10,7 @@ import { ButtonModule } from 'primeng/button';
 import { InputTextModule } from 'primeng/inputtext';
 import { PasswordModule } from 'primeng/password';
 import { LoginForm } from '../../shared/forms/Login';
+import { AuthService } from '../../../../core/services/auth-service';
 
 @Component({
   selector: 'app-login',
@@ -28,7 +29,7 @@ export class Login {
   public toogleModeForm: EventEmitter<void> = new EventEmitter<void>();
   public loginForm: FormGroup;
 
-  constructor() {
+  constructor(private authService: AuthService) {
     this.loginForm = this.generateForm();
   }
 
@@ -46,8 +47,11 @@ export class Login {
     if (this.loginForm.invalid) return;
     const loginPayload: LoginForm = {
       email: this.loginForm.get('email')?.value,
-      password: this.loginForm.get('password')?.value,
+      senha: this.loginForm.get('password')?.value,
     };
-    console.log(loginPayload);
+    this.authService.loadUsers(loginPayload).subscribe({
+      next: (res) => console.log(res),
+      error: (err) => console.error(err),
+    })
   }
 }
